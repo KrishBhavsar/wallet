@@ -30,6 +30,7 @@ interface SolBalance {
     currency: string;
   };
 }
+
 const Tokens: React.FC = () => {
   const [address, setAddress] = useState<string>("");
   const [tokens, setTokens] = useState<Token[]>([]);
@@ -79,7 +80,6 @@ const Tokens: React.FC = () => {
         },
       });
 
-      // Calculate total value including SOL and other tokens
       const tokensTotalValue = fungibleTokens.reduce(
         (acc: number, token: Token) => {
           if (token.token_info.price_info) {
@@ -96,7 +96,6 @@ const Tokens: React.FC = () => {
       const solValue = solBalanceInSol * solPrice;
       setTotalValue(tokensTotalValue + solValue);
 
-      // Sort tokens by price_per_token in descending order
       const sortedTokens = fungibleTokens.sort((a: Token, b: Token) => {
         const priceA = a.token_info.price_info?.price_per_token || 0;
         const priceB = b.token_info.price_info?.price_per_token || 0;
@@ -141,13 +140,13 @@ const Tokens: React.FC = () => {
             }}
           />
         </div>
-        <div className="flex-grow">
+        <div className="flex-grow text-center md:text-left">
           <h2 className="text-lg md:text-xl font-semibold text-gray-100">
             {name}
           </h2>
           <p className="text-sm text-gray-400">{symbol}</p>
         </div>
-        <div className="text-right">
+        <div className="text-center md:text-right">
           <p className="text-lg md:text-xl font-medium text-gray-100">
             {balance.toLocaleString(undefined, {
               minimumFractionDigits: 2,
@@ -166,12 +165,12 @@ const Tokens: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
-      <div className="container mx-auto p-4 md:p-6 max-w-lg">
-        <div className="bg-gray-800 rounded-xl shadow-lg p-4 md:p-6 mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6">
+      <div className="container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 max-w-lg">
+        <div className="bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             Solana Wallet
           </h1>
-          <div className="mb-4 md:mb-6">
+          <div className="mb-4 sm:mb-6">
             <input
               type="text"
               value={address}
@@ -197,11 +196,11 @@ const Tokens: React.FC = () => {
             <>
               {(tokens.length > 0 || solBalance) && (
                 <>
-                  <div className="bg-gradient-to-r from-purple-700 to-purple-800 rounded-xl shadow-lg p-4 md:p-6 mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                  <div className="bg-gradient-to-r from-purple-700 to-purple-800 rounded-xl shadow-lg p-4 sm:p-6 mb-8">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-2">
                       Total Balance
                     </h2>
-                    <p className="text-3xl md:text-5xl font-bold">
+                    <p className="text-3xl sm:text-4xl font-bold">
                       ${totalValue.toFixed(2)}
                     </p>
                   </div>
